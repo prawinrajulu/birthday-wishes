@@ -173,61 +173,146 @@ export default function LockScreen({ onUnlock }) {
         animate={status === 'wrong' && !showWrongPasswordScene ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
       >
-        {/* Heart Lock Icon */}
-        <motion.div
-          className="heart-lock-icon"
-          animate={{ scale: [1, 1.08, 1] }}
-          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M12 21 C12 21 3 13.5 3 7.5 C3 4.5 5.5 2 8.5 2 C10.5 2 12 4.5 12 4.5 C12 4.5 13.5 2 15.5 2 C18.5 2 21 4.5 21 7.5 C21 13.5 12 21 12 21Z" fill="#ff4d6d" stroke="#ff4d6d" />
-            <rect x="9" y="8" width="6" height="5" rx="1" fill="#fff" />
-            <path d="M10 8 V6 A2 2 0 0 1 14 6 V8" stroke="#fff" strokeWidth="1.5" />
+        {/* Left Side: Photo Frame Section */}
+        <div className="lock-photo-section">
+          {/* Blurred romantic background spotlights behind photo */}
+          <div className="lock-photo-bg" />
+          
+          {/* Faint heart-shaped glow in background */}
+          <svg className="lock-heart-glow" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
           </svg>
-        </motion.div>
 
-        <h1 className="lock-heading">
-          A Little Surprise Is Waiting For You 💖
-        </h1>
+          <div className="lock-photo-frame-wrap">
+            {/* Elegant premium floating elements (hearts, petals, sparkles) */}
+            {/* Sparkles */}
+            {[[12, 18], [88, 25], [15, 82], [85, 78]].map(([lx, ty], i) => (
+              <motion.div
+                key={`spark-${i}`}
+                style={{ position: 'absolute', left: `${lx}%`, top: `${ty}%`, zIndex: 10, pointerEvents: 'none' }}
+                animate={{ scale: [0, 1, 0], opacity: [0, 0.9, 0], rotate: [0, 180, 360] }}
+                transition={{ repeat: Infinity, duration: 2.2 + i * 0.4, delay: i * 0.3 }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 0 L15 9 L24 12 L15 15 L12 24 L9 15 L0 12 L9 9 Z" fill="#ffd166" />
+                </svg>
+              </motion.div>
+            ))}
 
-        <p className="lock-subtitle">
-          Enter the secret 4-digit passcode to unlock your birthday surprise.
-        </p>
+            {/* Glowing Hearts */}
+            {[[8, 48], [92, 50]].map(([lx, ty], i) => (
+              <motion.div
+                key={`heart-${i}`}
+                style={{ position: 'absolute', left: `${lx}%`, top: `${ty}%`, zIndex: 10, pointerEvents: 'none' }}
+                animate={{ y: [0, -14, 0], opacity: [0.3, 0.9, 0.3], scale: [0.9, 1.1, 0.9] }}
+                transition={{ repeat: Infinity, duration: 3 + i * 0.5, delay: i * 0.6, ease: 'easeInOut' }}
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#ff4d6d" opacity="0.8">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+              </motion.div>
+            ))}
 
-        {/* OTP boxes */}
-        <div className="otp-wrapper" onPaste={handlePaste}>
-          {digits.map((d, i) => (
-            <input
-              key={i}
-              ref={inputRefs[i]}
-              className={`otp-box ${status === 'wrong' && !showWrongPasswordScene ? 'shake' : ''} ${status === 'correct' ? 'success-glow' : ''}`}
-              type="password"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              maxLength={1}
-              value={d}
-              onChange={(e) => handleInput(i, e.target.value)}
-              onKeyDown={(e) => handleKeyDownInput(i, e)}
-              autoComplete="off"
-            />
-          ))}
+            {/* Falling Rose Petals */}
+            {[[25, -12], [70, -10]].map(([lx, ty], i) => (
+              <motion.div
+                key={`petal-${i}`}
+                style={{ position: 'absolute', left: `${lx}%`, top: `${ty}%`, zIndex: 10, pointerEvents: 'none' }}
+                animate={{ 
+                  y: [0, 360], 
+                  x: [0, (i === 0 ? 30 : -30)], 
+                  rotate: [0, 360],
+                  opacity: [0, 0.8, 0] 
+                }}
+                transition={{ repeat: Infinity, duration: 4.5 + i, delay: i * 1.5, ease: 'linear' }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff9eb5" opacity="0.85">
+                  <path d="M12 2 C18 2 22 6 22 12 C22 18 16 22 12 22 C6 22 2 18 2 12 C2 6 6 2 12 2 Z" />
+                </svg>
+              </motion.div>
+            ))}
+
+            {/* Double-layer Tilted Polaroid Photo Card */}
+            <div className="lock-photo-card">
+              <div className="lock-photo-frame">
+                {/* Responsive photo overlay & image */}
+                <img src="/images/romantic img.jpg" alt="My Favorite Person" />
+                <div className="lock-photo-overlay" />
+              </div>
+            </div>
+
+            {/* Soft reflection below */}
+            <div className="lock-photo-reflection" />
+          </div>
+
+          {/* Caption Container with gold glowing underline & rose icon */}
+          <div className="lock-caption-container">
+            <div className="lock-photo-caption">My Favorite Person ❤️</div>
+            <div className="lock-photo-underline" />
+          </div>
         </div>
 
-        {/* Unlock Button */}
-        <motion.button
-          type="button"
-          className="btn-primary unlock-btn pulse-glow"
-          onClick={handleUnlockBtn}
-          disabled={status === 'correct' || showWrongPasswordScene}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-        >
-          <span>Unlock My Surprise 🎁</span>
-        </motion.button>
+        {/* Soft glowing vertical divider */}
+        <div className="lock-divider" />
 
-        <p className="lock-hint">
-          Hint: It's our favorite number 🤫
-        </p>
+        {/* Right Side: Passcode input section */}
+        <div className="lock-passcode-section">
+          {/* Heart Lock Icon */}
+          <motion.div
+            className="heart-lock-icon"
+            animate={{ scale: [1, 1.08, 1] }}
+            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 21 C12 21 3 13.5 3 7.5 C3 4.5 5.5 2 8.5 2 C10.5 2 12 4.5 12 4.5 C12 4.5 13.5 2 15.5 2 C18.5 2 21 4.5 21 7.5 C21 13.5 12 21 12 21Z" fill="#ff4d6d" stroke="#ff4d6d" />
+              <rect x="9" y="8" width="6" height="5" rx="1" fill="#fff" />
+              <path d="M10 8 V6 A2 2 0 0 1 14 6 V8" stroke="#fff" strokeWidth="1.5" />
+            </svg>
+          </motion.div>
+
+          <h1 className="lock-heading">
+            A Little Surprise Is Waiting For You 💖
+          </h1>
+
+          <p className="lock-subtitle">
+            Enter the secret 4-digit passcode to unlock your birthday surprise.
+          </p>
+
+          {/* OTP boxes */}
+          <div className="otp-wrapper" onPaste={handlePaste}>
+            {digits.map((d, i) => (
+              <input
+                key={i}
+                ref={inputRefs[i]}
+                className={`otp-box ${status === 'wrong' && !showWrongPasswordScene ? 'shake' : ''} ${status === 'correct' ? 'success-glow' : ''}`}
+                type="password"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={1}
+                value={d}
+                onChange={(e) => handleInput(i, e.target.value)}
+                onKeyDown={(e) => handleKeyDownInput(i, e)}
+                autoComplete="off"
+              />
+            ))}
+          </div>
+
+          {/* Unlock Button */}
+          <motion.button
+            type="button"
+            className="btn-primary unlock-btn pulse-glow"
+            onClick={handleUnlockBtn}
+            disabled={status === 'correct' || showWrongPasswordScene}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <span>Unlock My Surprise 🎁</span>
+          </motion.button>
+
+          <p className="lock-hint">
+            Hint: It's our favorite number 🤫
+          </p>
+        </div>
       </motion.div>
 
       {/* Normal corner teddy bear (hidden during cinematic wrong password scene) */}

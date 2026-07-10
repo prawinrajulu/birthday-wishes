@@ -43,10 +43,22 @@ export default function TeddyBear({
   return (
     <motion.div
       className="teddy-wrap"
-      style={{ ...position, ...style, position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 5 }}
+      style={{ 
+        ...position, 
+        ...style, 
+        position: 'absolute', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        zIndex: 50, 
+        cursor: 'grab' 
+      }}
       variants={wrapVariants}
       initial="hidden"
       animate="visible"
+      drag
+      dragElastic={0.1}
+      whileTap={{ scale: 1.05, cursor: 'grabbing' }}
     >
       {/* Speech bubble */}
       {showBubble && speechText && (
