@@ -267,7 +267,7 @@ export default function BirthdayCake({ onBack }) {
       setAllOut(true);
       setShowConfetti(true);
       setHeartBurst(true);
-      setBubbleText('Wish pannitiya? I hope all your dreams come true! ✨');
+      setBubbleText('I hope all your dreams come true! ✨');
       setShowBubble(true);
       stopMicDetection();
     } else if (!isAllOut && allOut) {
@@ -537,34 +537,7 @@ export default function BirthdayCake({ onBack }) {
                   💨 Blow the Candles
                 </motion.button>
 
-                {!micActive ? (
-                  <motion.button
-                    key="mic-start"
-                    type="button"
-                    className="btn-secondary"
-                    onClick={startMicDetection}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    style={{ background: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255, 255, 255, 0.3)' }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    🎙️ Use Mic
-                  </motion.button>
-                ) : (
-                  <motion.button
-                    key="mic-stop"
-                    type="button"
-                    className="btn-secondary"
-                    onClick={stopMicDetection}
-                    style={{ background: 'rgba(255, 77, 109, 0.25)', color: '#ff4d6d', border: '1px solid var(--pink)' }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    🛑 Stop Mic
-                  </motion.button>
-                )}
+               
               </div>
             ) : (
               <motion.button
